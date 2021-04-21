@@ -17,6 +17,12 @@ class App extends Component {
     folders: [],
   };
 
+  handleDeleteNote = (noteId) => {
+    this.setState({
+        notes: this.state.notes.filter(note => note.id !== noteId)
+    })
+  }
+
   componentDidMount() {
     Promise.all([
       fetch(`${APIconfig.API_ENDPOINT}/notes`),
@@ -64,6 +70,7 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
+      deleteNote: this.handleDeleteNote,
     };
 
     return (
