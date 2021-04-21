@@ -5,7 +5,8 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
+//import dummyStore from '../dummy-store';
+import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
 import './App.css';
@@ -17,8 +18,21 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // fake date loading from API cal
-    setTimeout(() => this.setState(dummyStore), 600);
+    Promise.all([
+      fetch(`${APIconfig.API_ENDPOINT}/notes`),
+      fetch(`${APIconfig.API_ENDPOINT}/folders`),
+    ])
+      .then(([notesRes, foldersRes]) => {
+        if (!notesRes.ok) {
+          return notesRes.json().then(e => Promise.reject(e));
+        }
+        if (!foldersRes.ok) {
+            return foldersRes.json().then(e => Promise.reject(e));
+        }
+        return Promise.all([notesRes.json(), foldersRes.json()]);
+      })
+      .then(([notes, folders]) => this.setState({notes, folders}))
+      .catch((error) => alert(error));
   }
 
   renderNavRoutes() {
@@ -53,10 +67,9 @@ class App extends Component {
     };
 
     return (
-
-    //Provider used in return statement because above functions called inside
-    <NotefulContext.Provider value={contextValue}>
-      <div className="App">
+      //Provider used in return statement because above functions called inside
+      <NotefulContext.Provider value={contextValue}>
+        <div className="App">
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
             <h1>
@@ -65,7 +78,7 @@ class App extends Component {
             </h1>
           </header>
           <main className="App__main">{this.renderMainRoutes()}</main>
-      </div>
+        </div>
       </NotefulContext.Provider>
     );
   }
