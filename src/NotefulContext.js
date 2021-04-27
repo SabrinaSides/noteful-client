@@ -7,4 +7,4 @@ const NotefulContext = React.createContext({
 
 })
 
-export default NotefulContext;
+export default NotefulContext; 

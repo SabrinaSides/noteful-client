@@ -8,7 +8,7 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 //import dummyStore from '../dummy-store';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+//import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
 import './App.css';
 
 class App extends Component {
@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   render() {
-    //making contextvalue sync with state
+    //making contextvalue sync with state and state changes
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,

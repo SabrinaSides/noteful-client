@@ -5,7 +5,7 @@ import NotefulContext from '../NotefulContext';
 import { findNote, findFolder } from '../notes-helpers';
 import './NotePageNav.css'
 
-//changed function to class component
+//changed function to class component 
 export default class NotePageNav extends React.Component {
   static defaultProps = {
       history: {
