@@ -2,9 +2,10 @@ import React from 'react';
 import Note from '../Note/Note';
 import NotefulContext from '../NotefulContext';
 import { findNote } from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NotePageMain.css';
 
-export default class NotePageMain extends React.Component {
+class NotePageMain extends React.Component {
   static defaultProps = {
     match: {
       params: {}
@@ -31,12 +32,15 @@ export default class NotePageMain extends React.Component {
           onDeleteNote={this.handleDeleteNote}
         />
         <div className="NotePageMain__content">
-          {note.content.split(/\n \r|\n/).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
+          {note.content}
         </div>
       </section>
     );
   }
 }
 
+NotePageMain.propTypes = {
+  match: PropTypes.string
+}
+
+export default NotePageMain;

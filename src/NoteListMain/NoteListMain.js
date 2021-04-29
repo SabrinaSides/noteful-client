@@ -5,18 +5,19 @@ import Note from '../Note/Note';
 import CircleButton from '../CircleButton/CircleButton';
 import NotefulContext from '../NotefulContext';
 import { getNotesForFolder } from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NoteListMain.css';
 
-export default class NoteListMain extends React.Component {
+class NoteListMain extends React.Component {
   static defaultProps = {
     match: {
-      params: {}
+      params: {} //for matching with folderId
     }
   }
   static contextType = NotefulContext;
 
   render() {
-    const { notes } = this.context;
+    const { notes= [] } = this.context;
     const { folderId } = this.props.match.params;
     const notesForFolder = getNotesForFolder(notes, folderId)
     return (
@@ -32,7 +33,7 @@ export default class NoteListMain extends React.Component {
           <CircleButton
             tag={Link}
             to="/add-note"
-            type="button"
+            type="button" 
             className="NoteListMain__add-note-button"
           >
             <FontAwesomeIcon icon="plus" />
@@ -45,3 +46,8 @@ export default class NoteListMain extends React.Component {
   }
 }
 
+NoteListMain.propTypes = {
+  match: PropTypes.string
+}
+
+export default NoteListMain;

@@ -6,11 +6,12 @@ import NotefulError from '../NotefulError';
 import './AddNote.css';
 
 class AddNote extends React.Component {
-  //to be transferred to global state in App
+  //to be used to POST to server
   state = {
     name: '',
     folderId: '',
     content: '',
+
   };
 
   static defaultProps = {
@@ -123,5 +124,6 @@ class AddNote extends React.Component {
     );
   }
 }
+
 
 export default AddNote;

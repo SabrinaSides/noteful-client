@@ -3,23 +3,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircleButton from '../CircleButton/CircleButton'
 import NotefulContext from '../NotefulContext';
 import { findNote, findFolder } from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NotePageNav.css'
 
 //changed function to class component 
-export default class NotePageNav extends React.Component {
+class NotePageNav extends React.Component {
   static defaultProps = {
-      history: {
+      history: { //allows us to call history and goBack method to return to previous page
         goBack: () => {}
       },
     match: {
-      params: {} //????
+      params: {} //param holds unique folderId
     }
   }
-  static contextType = NotefulContext; //makes this.context
+  static contextType = NotefulContext; //allows this.context
 
   render(){
-    const { notes, folders } = this.context //define what to use from this.context?
-    const { noteId } = this.props.match.params
+    const { notes, folders } = this.context //define what is used from context
+    const { noteId } = this.props.match.params //
     const note = findNote(notes, noteId) || {}
     const folder = findFolder(folders, note.folderId)
   return (
@@ -43,3 +44,9 @@ export default class NotePageNav extends React.Component {
   )
 }
 }
+
+NotePageNav.propTypes = {
+  match: PropTypes.string
+}
+
+export default NotePageNav;

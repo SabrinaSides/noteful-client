@@ -6,12 +6,12 @@ import { countNotesForFolder } from '../notes-helpers';
 import NotefulContext from '../NotefulContext';
 import './NoteListNav.css';
 
-//changed from function to class component-- so we can use context without Context.Consumer(?)
+//changed from function to class component-- so we can use context without Context.Consumer
 export default class NoteListNav extends React.Component {
-  static contextType = NotefulContext; //creates this.context
+  static contextType = NotefulContext; //allows this.context
 
   render() {
-    const { notes=[], folders=[] } = this.context //declaring part of context we will use
+    const { notes = [], folders= []} = this.context //declaring part of context we will use
     return (
         <div className="NoteListNav">
           <ul className="NoteListNav__list">

@@ -75,6 +75,7 @@ class AddFolder extends React.Component {
             id="name"
             value={this.state.name}
             onChange={(e) => this.updateState(e.target.value)}
+            required
           />
           <div className="addbookmark__buttons">
             <button type="submit">Save</button>
