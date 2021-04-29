@@ -11,7 +11,7 @@ class AddNote extends React.Component {
     name: '',
     folderId: '',
     content: '',
-
+    modified: ''
   };
 
   static defaultProps = {
@@ -25,7 +25,7 @@ class AddNote extends React.Component {
 
   //used to update local state (from onChange in input tag)
   updateName(name) {
-    this.setState({ name });
+    this.setState({ name, modified: new Date(Date.now()).toISOString()});
   }
 
   updatefolderId(id) {
@@ -39,8 +39,8 @@ class AddNote extends React.Component {
   //handles submit button click and update of global state with POST
   handleSubmit(e) {
     e.preventDefault();
-    const { name, folderId, content } = this.state;
-    const newNote = { name, folderId, content };
+    const { name, folderId, content, modified } = this.state;
+    const newNote = { name, folderId, content, modified };
     const url = `${APIconfig.API_ENDPOINT}/notes`;
     const options = {
       method: 'POST',
