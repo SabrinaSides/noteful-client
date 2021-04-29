@@ -16,7 +16,7 @@ export default class NoteListMain extends React.Component {
   static contextType = NotefulContext;
 
   render() {
-    const { notes=[] } = this.context;
+    const { notes } = this.context;
     const { folderId } = this.props.match.params;
     const notesForFolder = getNotesForFolder(notes, folderId)
     return (

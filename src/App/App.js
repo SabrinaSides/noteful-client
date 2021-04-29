@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NoteListNav from '../NoteListNav/NoteListNav';
@@ -7,47 +7,53 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
-//import dummyStore from '../dummy-store';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
-//import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   state = {
     notes: [],
     folders: [],
   };
 
-  handleDeleteNote = (noteId) => {
+ handleDeleteNote = (noteId) => {
     this.setState({
-        notes: this.state.notes.filter(note => note.id !== noteId)
-    })
-  }
-
-  handleAddFolder(newFolder){
-    this.setState({
-      folders: [...this.state.folders, newFolder],
-      showAddForm: false
-    })
-  }
+      notes: this.state.notes.filter((note) => note.id !== noteId),
+    });
+  };
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
     Promise.all([
-      fetch(`${APIconfig.API_ENDPOINT}/notes`),
-      fetch(`${APIconfig.API_ENDPOINT}/folders`),
+      this.fetchNotes(),
+      this.fetchFolders()
     ])
-      .then(([notesRes, foldersRes]) => {
-        if (!notesRes.ok) {
-          return notesRes.json().then(e => Promise.reject(e));
+      .then(([notes, folders]) => this.setState({ notes, folders }))
+      .catch((error) => this.setState(error));
+  };
+
+  fetchNotes = () => {
+    return fetch(`${APIconfig.API_ENDPOINT}/notes`)
+      .then(res => {
+        if(!res.ok){
+          throw new Error(res.statusText)
         }
-        if (!foldersRes.ok) {
-            return foldersRes.json().then(e => Promise.reject(e));
-        }
-        return Promise.all([notesRes.json(), foldersRes.json()]);
+      return res.json()
       })
-      .then(([notes, folders]) => this.setState({notes, folders}))
-      .catch((error) => alert(error));
+  }
+
+  fetchFolders = () => {
+    return fetch(`${APIconfig.API_ENDPOINT}/folders`)
+      .then(res => {
+        if(!res.ok){
+          throw new Error(res.statusText)
+        }
+        return res.json()
+      })
   }
 
   renderNavRoutes() {
@@ -82,7 +88,7 @@ class App extends Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.handleDeleteNote,
-      addFolder: this.handleAddFolder,
+      fetchData: this.fetchData,
     };
 
     return (

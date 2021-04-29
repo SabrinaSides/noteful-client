@@ -1,18 +1,21 @@
 import React from 'react';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
+import NotefulError from '../NotefulError';
 import './AddFolder.css';
 
 class AddFolder extends React.Component {
   //to be transferred to global state in App
   state = {
-    folders: [
-      {
         id: '',
-        name: '',
-      },
-    ],
+        name: ''
   };
+
+  static defaultProps = {
+    history: {
+      goBack: () => {}
+    }
+}
 
   static contextType = NotefulContext;
 
@@ -32,7 +35,7 @@ class AddFolder extends React.Component {
   //handles submit button click and update of global state with POST
   handleSubmit(e) {
     e.preventDefault();
-    const {id, name } = this.state;
+    const { id, name } = this.state;
     const newFolder = {id, name};
     const url = `${APIconfig.API_ENDPOINT}/folders`;
     const options = {
@@ -49,7 +52,8 @@ class AddFolder extends React.Component {
             return res.json();
         })
         .then(resJson => {
-            this.AddFolder(resJson)
+            this.props.history.goBack()
+            this.context.fetchData()
         })
         .catch(error => {
             this.setState({
@@ -62,19 +66,21 @@ class AddFolder extends React.Component {
     return (
       <div className="addfolder">
         <h1>Add Folder</h1>
+        <NotefulError>
         <form className="addfolder__form" onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             name="name"
             id="name"
-            value={this.state.folders.name}
+            value={this.state.name}
             onChange={(e) => this.updateState(e.target.value)}
           />
           <div className="addbookmark__buttons">
             <button type="submit">Save</button>
           </div>
         </form>
+        </NotefulError>
       </div>
     );
   }
