@@ -40,7 +40,7 @@ class NotePageMain extends React.Component {
 }
 
 NotePageMain.propTypes = {
-  match: PropTypes.string
+  match: PropTypes.object
 }
 
 export default NotePageMain;

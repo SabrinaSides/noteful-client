@@ -1,7 +1,7 @@
 import React from 'react';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
-import NotefulError from '../NotefulError';
+import PropTypes from 'prop-types';
 import './AddFolder.css';
 
 class AddFolder extends React.Component {
@@ -32,7 +32,7 @@ class AddFolder extends React.Component {
     const url = `${APIconfig.API_ENDPOINT}/folders`;
     const options = {
       method: 'POST',
-      body: JSON.stringify({name}),
+      body: JSON.stringify({ name }),
       headers: { 'Content-Type': 'application/json' },
     };
 
@@ -58,7 +58,6 @@ class AddFolder extends React.Component {
     return (
       <div className="addfolder">
         <h1>Add Folder</h1>
-        <NotefulError>
           <form
             className="addfolder__form"
             onSubmit={(e) => this.handleSubmit(e)}
@@ -76,10 +75,13 @@ class AddFolder extends React.Component {
               <button type="submit">Save</button>
             </div>
           </form>
-        </NotefulError>
       </div>
     );
   }
 }
+
+AddFolder.propTypes = {
+  history: PropTypes.object,
+};
 
 export default AddFolder;

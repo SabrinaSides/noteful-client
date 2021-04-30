@@ -2,7 +2,6 @@ import React from 'react';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
 import ValidationError from '../ValidationError/ValidationError';
-import NotefulError from '../NotefulError';
 import './AddNote.css';
 
 class AddNote extends React.Component {
@@ -83,7 +82,6 @@ class AddNote extends React.Component {
     return (
       <div className="addnote">
         <h1>Add Note</h1>
-        <NotefulError>
           <form
             className="addnote__form"
             onSubmit={(e) => this.handleSubmit(e)}
@@ -119,7 +117,6 @@ class AddNote extends React.Component {
               <button type="submit">Save</button>
             </div>
           </form>
-        </NotefulError>
       </div>
     );
   }

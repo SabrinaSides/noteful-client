@@ -9,6 +9,7 @@ import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import APIconfig from '../APIconfig';
 import NotefulContext from '../NotefulContext';
+import NotefulError from '../NotefulError';
 import './App.css';
 
 class App extends React.Component {
@@ -95,14 +96,18 @@ class App extends React.Component {
       //Provider used in return statement because above functions called inside
       <NotefulContext.Provider value={contextValue}>
         <div className="App">
+          <NotefulError>
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
+          </NotefulError>
           <header className="App__header">
             <h1>
               <Link to="/">Noteful</Link>{' '}
               <FontAwesomeIcon icon="check-double" />
             </h1>
           </header>
+          <NotefulError>
           <main className="App__main">{this.renderMainRoutes()}</main>
+          </NotefulError>
         </div>
       </NotefulContext.Provider>
     );
