@@ -8,7 +8,7 @@ class AddNote extends React.Component {
   //to be used to POST to server
   state = {
     name: '',
-    folderId: '',
+    folder_id: '',
     content: '',
     modified: ''
   };
@@ -28,7 +28,7 @@ class AddNote extends React.Component {
   }
 
   updatefolderId(id) {
-    this.setState({ folderId: id });
+    this.setState({ folder_id: id });
   }
 
   updateContent(content) {
@@ -38,8 +38,8 @@ class AddNote extends React.Component {
   //handles submit button click and update of global state with POST
   handleSubmit(e) {
     e.preventDefault();
-    const { name, folderId, content, modified } = this.state;
-    const newNote = { name, folderId, content, modified };
+    const { name, folder_id, content, modified } = this.state;
+    const newNote = { name, folder_id, content, modified };
     const url = `${APIconfig.API_ENDPOINT}/notes`;
     const options = {
       method: 'POST',

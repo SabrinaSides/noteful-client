@@ -19,10 +19,12 @@ class App extends React.Component {
   };
 
  handleDeleteNote = (noteId) => {
-    this.setState({
-      notes: this.state.notes.filter((note) => note.id !== noteId),
-    });
-  };
+    fetch(`${APIconfig.API_ENDPOINT}/notes/${noteId}`, {method: 'DELETE'})
+      const updatedNotes = this.state.notes.filter(note => note.id !== noteId)
+      this.setState({
+        notes: updatedNotes
+      })
+    }
 
   componentDidMount() {
     this.fetchData();
@@ -60,10 +62,10 @@ class App extends React.Component {
   renderNavRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map((path) => (
+        {['/', '/folder/:folder_id'].map((path) => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
-        <Route path="/note/:noteId" component={NotePageNav} />
+        <Route path="/note/:note_id" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
       </>
@@ -73,10 +75,10 @@ class App extends React.Component {
   renderMainRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map((path) => (
+        {['/', '/folder/:folder_id'].map((path) => (
           <Route exact key={path} path={path} component={NoteListMain} />
         ))}
-        <Route path="/note/:noteId" component={NotePageMain} />
+        <Route path="/note/:note_id" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
         <Route path="/add-note" component={AddNote} />
       </>

@@ -20,7 +20,9 @@ class NotePageMain extends React.Component {
 
   render() {
     const { notes=[] } = this.context;
-    const { noteId } = this.props.match.params;
+    const { note_id } = this.props.match.params;
+    const noteId = parseInt(note_id)
+
     const note = findNote(notes, noteId) || { content: '' }
 
     return (
