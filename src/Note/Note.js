@@ -14,23 +14,20 @@ class Note extends React.Component {
 
   handleClickDelete = (e) => {
     e.preventDefault();
-    const noteId = this.props.id;
+    const note_id = this.props.id;
 
-    fetch(`${APIconfig.API_ENDPOINT}/notes/${noteId}`, {
+    fetch(`${APIconfig.API_ENDPOINT}/notes/${note_id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
       },
-    })
-    .then(res => {
-      if(!res.ok) { return res.json().then(e => Promise.reject(e))}
-        return res.json()
+      body: JSON.stringify(null)
     })
     .then(() => {
-      this.context.deleteNote(noteId)
+      this.context.deleteNote(note_id)
       //allow parent to perform extra behavior, prop passed from NotePain Main (where function lives), 
       //sends user back to mainpage after deleting note on notepage
-      this.props.onDeleteNote(noteId)
+      this.props.onDeleteNote(note_id)
     })
     .catch(error => console.error({ error }))
   };

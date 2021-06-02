@@ -18,13 +18,22 @@ class App extends React.Component {
     folders: [],
   };
 
- handleDeleteNote = (noteId) => {
-    fetch(`${APIconfig.API_ENDPOINT}/notes/${noteId}`, {method: 'DELETE'})
-      const updatedNotes = this.state.notes.filter(note => note.id !== noteId)
-      this.setState({
-        notes: updatedNotes
+ /* handleDeleteNote = (note_id) => {
+    fetch(`${APIconfig.API_ENDPOINT}/notes/${note_id}`, {
+      method: 'DELETE',
+     headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(null)})
+      //.then(res => this.props.history.push(`/`)) 
+      .then(res => this.deleteNote(note_id))
+    } */
+
+  handleDeleteNote = (noteId) => {
+    this.setState({
+        notes: this.state.notes.filter(note => note.id !== noteId)
       })
-    }
+  }
 
   componentDidMount() {
     this.fetchData();
