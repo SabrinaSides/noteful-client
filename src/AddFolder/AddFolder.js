@@ -29,7 +29,7 @@ class AddFolder extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { name } = this.state;
-    const url = `${APIconfig.API_ENDPOINT}/folders`;
+    const url = `${APIconfig.API_ENDPOINT}/api/folders`;
     const options = {
       method: 'POST',
       body: JSON.stringify({ name }),

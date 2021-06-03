@@ -40,7 +40,7 @@ class AddNote extends React.Component {
     e.preventDefault();
     const { name, folder_id, content, modified } = this.state;
     const newNote = { name, folder_id, content, modified };
-    const url = `${APIconfig.API_ENDPOINT}/notes`;
+    const url = `${APIconfig.API_ENDPOINT}/api/notes`;
     const options = {
       method: 'POST',
       body: JSON.stringify(newNote),
