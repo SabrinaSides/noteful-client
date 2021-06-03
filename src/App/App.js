@@ -49,7 +49,7 @@ class App extends React.Component {
   };
 
   fetchNotes = () => {
-    return fetch(`${APIconfig.API_ENDPOINT}/notes`)
+    return fetch(`${APIconfig.API_ENDPOINT}/api/notes`)
       .then(res => {
         if(!res.ok){
           throw new Error(res.statusText)
@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   fetchFolders = () => {
-    return fetch(`${APIconfig.API_ENDPOINT}/folders`)
+    return fetch(`${APIconfig.API_ENDPOINT}/api/folders`)
       .then(res => {
         if(!res.ok){
           throw new Error(res.statusText)
